@@ -1,0 +1,13 @@
+.user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 60px;
+    padding-bottom:80px;
+}
+
+@media screen and (max-width: 550px) {
+    .user {
+        padding-top: 40px;
+    }
+}

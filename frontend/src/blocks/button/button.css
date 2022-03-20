@@ -1,0 +1,24 @@
+.button {
+    background-image: url(../../images/Plus.svg);
+    width: 150px;
+    height: 50px;
+    border: 2px solid #FFFFFF;
+    border-radius: 2px;
+    align-self: center;
+    opacity: 1;
+    background-color: black;
+    cursor: pointer;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.button:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 767px) {
+    .button {
+        width: 282px;
+        margin-top: 36px;
+    }
+}

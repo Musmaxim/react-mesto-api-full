@@ -1,0 +1,7 @@
+.elements__like-box {
+    display: flex;
+    flex-direction: column;
+    min-width: 22px;
+    min-height: 35px;
+    border: none;
+}

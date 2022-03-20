@@ -1,0 +1,24 @@
+.info__work {
+    font-style: normal;
+    font-weight: normal;
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 22px;
+    align-self: start;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+@media screen and (max-width: 767px) {
+    .info__work {
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+    }
+}

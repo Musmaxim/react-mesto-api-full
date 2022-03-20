@@ -1,0 +1,24 @@
+.info__edit {
+    background-image: url(../../../images/Pen.svg);
+    height: 24px;
+    border: 1px white solid;
+    align-self: end;
+    opacity: 1;
+    background-color: black;
+    cursor: pointer;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.info__edit:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 767px) {
+    .info__edit {
+        height: 18px;
+        width: 18px;
+        grid-row-start: 1;
+        grid-row-end: 3;
+    }
+}
