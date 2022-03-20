@@ -5,13 +5,15 @@ npm-debug.log*
 
 # Dependency directory
 node_modules
+./frontend/node_modules
+./backend/node_modules
 
 # Optional npm cache directory
 .npm
+.env
 
 # Optional REPL history
 .DS_Store
 .idea
 .vscode
 
-.env
