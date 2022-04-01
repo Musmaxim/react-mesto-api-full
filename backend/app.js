@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const { errors } = require('celebrate');
 const auth = require('./middlewares/auth');
 const errorHandler = require('./middlewares/error');
@@ -16,6 +17,10 @@ const {
 
 const { PORT = 3000 } = process.env;
 const app = express();
+app.use(cors({
+  origin: 'https://frontmus.students.nomoredomains.work',
+  credentials: true,
+}));
 app.use(cookieParser());
 app.use(express.json());
 
