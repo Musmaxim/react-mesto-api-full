@@ -15,14 +15,16 @@ const {
   createUser,
 } = require('./controllers/users');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 const app = express();
+
 app.use(cors({
   origin: 'https://frontmus.students.nomoredomains.work',
   methods: ['OPTIONS', 'GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'origin', 'Authorization', 'Cookie'],
   credentials: true,
 }));
+
 app.use(cookieParser());
 app.use(express.json());
 
