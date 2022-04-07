@@ -7,6 +7,7 @@ const { errors } = require('celebrate');
 const auth = require('./middlewares/auth');
 const errorHandler = require('./middlewares/error');
 const { validateUser, validateLogin } = require('./middlewares/validations');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/NotFoundError');
 const routerUser = require('./routes/users');
 const routerCards = require('./routes/cards');
@@ -36,6 +37,8 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
+app.use(requestLogger);
+
 app.post('/signin', validateLogin, login);
 app.post('/signup', validateUser, createUser);
 
@@ -46,6 +49,8 @@ app.use('/cards', routerCards);
 app.use(() => {
   throw new NotFoundError('Страница не найдена');
 });
+
+app.use(errorLogger);
 
 app.use(errors());
 app.use(errorHandler);
