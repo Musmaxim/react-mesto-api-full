@@ -28,11 +28,3 @@ export const profileSelectors = {
     avatarSelector: ".info__photo",
     avatarEditSelector: ".info__photo-edit",
 };
-
-export const apiConfig = {
-    baseUrl: "https://mesto.nomoreparties.co/v1/cohort-30/",
-    headers: {
-        authorization: "f527135c-0312-442d-818d-6dc714cef781",
-        "Content-Type": "application/json",
-    },
-};
