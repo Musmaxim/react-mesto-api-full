@@ -19,7 +19,7 @@ import successIcon from '../images/Success.svg';
 import React, { useState, useEffect } from 'react';
 import { Switch, Redirect, Route, useHistory } from "react-router-dom";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import {api} from '../utils/api';
+import api from '../utils/api';
 
 function App() {
 
