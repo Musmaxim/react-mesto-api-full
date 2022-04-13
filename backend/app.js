@@ -19,15 +19,18 @@ const {
 const { PORT = 3000 } = process.env;
 const app = express();
 
+app.use(cookieParser());
+
+app.use(express.json());
+
+app.use(requestLogger);
+
 app.use(cors({
   origin: 'https://frontmus.students.nomoredomains.work',
   methods: ['OPTIONS', 'GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'origin', 'Authorization', 'Cookie'],
   credentials: true,
 }));
-
-app.use(cookieParser());
-app.use(express.json());
 
 mongoose.connect('mongodb://localhost:27017/mestodb', { useNewUrlParser: true });
 
@@ -36,8 +39,6 @@ app.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
-
-app.use(requestLogger);
 
 app.post('/signin', validateLogin, login);
 app.post('/signup', validateUser, createUser);
