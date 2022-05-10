@@ -29,17 +29,17 @@ module.exports.getUserId = (req, res, next) => {
 
 module.exports.createUser = (req, res, next) => {
   const {
-    name, about, avatar, email, password,
+    email, password,
   } = req.body;
   bcrypt.hash(password, 8)
     .then((hash) => User.create(
       {
-        name, about, avatar, email, password: hash,
+        email, password: hash,
       },
     ))
     .then(() => res.status(200).send({
       data: {
-        name, about, avatar, email,
+        email,
       },
     }))
     .catch((err) => {
@@ -91,15 +91,16 @@ module.exports.updateAvatar = (req, res, next) => {
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-  User.findUserByCredentials(email, password)
+  return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key', { expiresIn: '7d' });
-      res
-        .cookie('jwt', token, {
-          maxAge: 604800,
-          httpOnly: true,
-          sameSite: true,
-        })
+      res.status(200).send({ token })
+      // res
+      //   .cookie('jwt', token, {
+      //     maxAge: 604800,
+      //     httpOnly: true,
+      //     sameSite: true,
+      //   })
         .send({ message: 'Авторизация прошла успешно' });
     })
     .catch(() => {

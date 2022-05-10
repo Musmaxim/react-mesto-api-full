@@ -1,5 +1,5 @@
 const apiConfig = {
-    baseUrl: 'https://api.musmaxim.students.nomoredomains.work',
+    baseUrl: 'http://localhost:3001',
     headers: {
     'Content-Type': 'application/json'
     }
@@ -102,4 +102,6 @@ class Api {
 
 }
 
-export const api = new Api(apiConfig);
+const api = new Api(apiConfig);
+
+export default api;

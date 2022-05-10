@@ -16,7 +16,7 @@ const {
   createUser,
 } = require('./controllers/users');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 const app = express();
 
 app.use(cookieParser());
@@ -25,12 +25,7 @@ app.use(express.json());
 
 app.use(requestLogger);
 
-app.use(cors({
-  origin: 'https://frontmus.students.nomoredomains.work',
-  methods: ['OPTIONS', 'GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'origin', 'Authorization', 'Cookie'],
-  credentials: true,
-}));
+app.use(cors());
 
 mongoose.connect('mongodb://localhost:27017/mestodb', { useNewUrlParser: true });
 
@@ -56,4 +51,6 @@ app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 
-app.listen(PORT, () => {});
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
+});

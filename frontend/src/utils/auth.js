@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.musmaxim.students.nomoredomains.work';
+export const BASE_URL = 'http://localhost:3001';
 
 const checkResponse = (res) => {
     if (!res.ok) {
@@ -10,6 +10,7 @@ const checkResponse = (res) => {
 export const register = (email, password) => {
     return fetch(`${BASE_URL}/signup`, {
         method: 'POST',
+        // credentials: 'include',
         headers: {
             'Accept': 'application/json',
             'content-type': 'application/json'
@@ -22,6 +23,7 @@ export const register = (email, password) => {
 export const authorize = ({email, password}) => {
     return fetch(`${BASE_URL}/signin`, {
         method: 'POST',
+        // credentials: 'include',
         headers: {
             'Accept': 'application/json',
             'content-type': 'application/json'

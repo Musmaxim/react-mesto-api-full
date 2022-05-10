@@ -63,7 +63,7 @@ function App() {
         .catch((err) => {
             console.log(err);
         });
-        tokenCheck();       
+        tokenCheck();      
     }, []);
 
     const handleCardLike = (card) => {
