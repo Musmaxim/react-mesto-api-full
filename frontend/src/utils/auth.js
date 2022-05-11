@@ -32,12 +32,12 @@ export const authorize = ({email, password}) => {
     }).then(res => checkResponse(res)) 
 }
 
-export const checkToken = (token) => {
+export const checkToken = (jwt) => {
     return fetch(`${BASE_URL}/users/me`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${jwt}`
         }
     })
     .then(checkResponse)
