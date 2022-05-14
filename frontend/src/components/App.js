@@ -45,6 +45,7 @@ function App() {
             .checkToken(jwt)
             .then ((data) => {
                 if (data) {
+                    api._headers['Authorization'] = `Bearer ${jwt}`;
                     setLoggedIn(true);
                     history.push("/");
                     setEmail(data.data['email']);
@@ -54,18 +55,59 @@ function App() {
                 console.log(err);});
         }
     }
+
+    useEffect(() => {
+        tokenCheck();
+    }, []);
     
     useEffect(() => {
-        Promise.all([api.getUserInfo(), api.getInitialCards()])
-        .then(([userInfo, cards]) => {
-            setcurrentUser(userInfo);
-            setCards(cards);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-        tokenCheck();      
-    }, []);
+        if (loggedIn) {
+            api.getUserInfo()
+                .then(data => {
+                    setcurrentUser(data);
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        }
+    }, [loggedIn]);
+
+    useEffect(() => {
+        if (loggedIn) {
+            api.getInitialCards()
+                .then(cards => {
+                    setCards(cards);
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        }
+    }, [loggedIn]);
+
+    // useEffect(() => {
+    //     if (loggedIn) {
+    //         Promise.all([api.getUserInfo(), api.getInitialCards()])
+    //     .then(([userInfo, cards]) => {
+    //         setcurrentUser(userInfo);
+    //         setCards(cards);
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     });  
+    //     }
+    // }, [loggedIn]);
+
+    // useEffect(() => {
+    //     Promise.all([api.getUserInfo(), api.getInitialCards()])
+    //     .then(([userInfo, cards]) => {
+    //         setcurrentUser(userInfo);
+    //         setCards(cards);
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     });
+    //     tokenCheck();      
+    // }, []);
 
     const handleCardLike = (card) => {
         const isliked = card.likes.some(i => i._id === currentUser._id);
@@ -159,13 +201,6 @@ function App() {
         setIsButtonText('')
     }
 
-    const handleSignOut = () => {
-        setLoggedIn(false);
-        localStorage.removeItem("jwt");
-        setEmail("");
-        history.push("/sign-in");
-    }
-
     const handleToolltipInfoOpen = () => {
         setIsTooltipOpen(true);
     }
@@ -201,8 +236,9 @@ function App() {
             .then((data) => {
                 setLoggedIn(true);
                 setEmail(email);
-                history.push("/");
-                localStorage.setItem("jwt", data.token);   
+                localStorage.setItem("jwt", data.token);
+                api._headers['Authorization'] = `Bearer ${data.token}`;
+                history.push("/");   
             })
             .catch((err) => {
             handleTooltipInfo({
@@ -212,6 +248,14 @@ function App() {
             handleToolltipInfoOpen();
             console.log(err);
             });
+    }
+
+    const handleSignOut = () => {
+        setLoggedIn(false);
+        localStorage.removeItem("jwt");
+        setEmail("");
+        api._headers['Authorization'] = " ";
+        history.push("/sign-in");
     }
 
     return (

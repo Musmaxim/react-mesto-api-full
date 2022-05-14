@@ -35,13 +35,16 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.post('/signin', validateLogin, login);
 app.post('/signup', validateUser, createUser);
+
+app.post('/signin', validateLogin, login);
 
 app.use(auth);
 
 app.use('/users', routerUser);
+
 app.use('/cards', routerCards);
+
 app.use(() => {
   throw new NotFoundError('Страница не найдена');
 });
@@ -49,6 +52,7 @@ app.use(() => {
 app.use(errorLogger);
 
 app.use(errors());
+
 app.use(errorHandler);
 
 app.listen(PORT, () => {
