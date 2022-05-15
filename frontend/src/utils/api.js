@@ -10,7 +10,6 @@ class Api {
     constructor(options) {
         this._baseUrl = options.baseUrl;
         this._headers = options.headers;
-        this._config = options;
     }
 
     static checkResponse(res) {
@@ -21,83 +20,77 @@ class Api {
     }
 
     getUserInfo() {
-        return fetch (`${this._baseUrl}/users/me`, this._config).then(Api.checkResponse);
+        return fetch (`${this._baseUrl}/users/me`, { headers: this._headers }).then(Api.checkResponse);
     }
     getInitialCards() {
-        return fetch (`${this._baseUrl}/cards`, this._config).then(Api.checkResponse);
+        return fetch (`${this._baseUrl}/cards`, { headers: this._headers }).then(Api.checkResponse);
     }
 
     setAvatar({ avatar_url }) {
         return fetch (
-            `${this._baseUrl}/users/me/avatar`,
-            Object.assign(this._config, {
+            `${this._baseUrl}/users/me/avatar`, {
                 method: "PATCH",
+                headers: this._headers,
                 body: JSON.stringify({ avatar: avatar_url }),
             })
-        ).then(Api.checkResponse);
+        .then(Api.checkResponse);
     }
 
     setUserInfo({ name, about }) {
         return fetch (
-            `${this._baseUrl}/users/me`,
-            Object.assign(this._config, {
+            `${this._baseUrl}/users/me`, {
                 method: "PATCH",
+                headers: this._headers,
                 body: JSON.stringify({
                     name: name,
                     about: about,
                 }),
             })
-        ).then(Api.checkResponse);
+        .then(Api.checkResponse);
     }
 
     addCard(data) {
         return fetch (
-            `${this._baseUrl}/cards`,
-            Object.assign(this._config, {
+            `${this._baseUrl}/cards`, {
                 method: "POST",
+                headers: this._headers,
                 body: JSON.stringify({
                     name: data.name,
                     link: data.link,
                 }),
             })
-        ).then(Api.checkResponse);
+        .then(Api.checkResponse);
     }
 
     deleteCard(id) {
         return fetch (
-            `${this._baseUrl}/cards/${id}`,
-            Object.assign(this._config, {
+            `${this._baseUrl}/cards/${id}`, {
                 method: "DELETE",
                 headers: this._headers
             })
-        ).then(Api.checkResponse);
+        .then(Api.checkResponse);
     }
 
-    putCardLike(id) {
+    _putCardLike(id) {
         return fetch (
-            `${this._baseUrl}/cards/${id}`,
-            Object.assign(this._config, {
+            `${this._baseUrl}/cards/${id}/likes`, {
                 method: "PUT",
+                headers: this._headers
             })
-        ).then(Api.checkResponse);
+        .then(Api.checkResponse);
     }
 
-    deleteCardLike(id) {
+    _deleteCardLike(id) {
         return fetch (
-            `${this._baseUrl}/cards/likes/${id}`,
-            Object.assign(this._config, {
+            `${this._baseUrl}/cards/likes/${id}`, {
                 method: "DELETE",
+                headers: this._headers
             })
-        ).then(Api.checkResponse);
+        .then(Api.checkResponse);
     }
 
     likeCard(cardid, isliked) {
-        return fetch (
-            `${this._baseUrl}/cards/likes/${cardid}`,
-            Object.assign(this._config, {
-                method: isliked ? "PUT" : "DELETE",
-            })
-        ).then(Api.checkResponse);
+        return isliked ? this._putCardLike(cardid) : this._deleteCardLike(cardid);
     }
 
 }

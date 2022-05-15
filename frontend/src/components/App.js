@@ -38,52 +38,6 @@ function App() {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState({ imgPath: "", text: "" });
     
-    const tokenCheck = () => {
-        const jwt = localStorage.getItem("jwt")
-        if (localStorage.getItem("jwt")) {
-        auth
-            .checkToken(jwt)
-            .then ((data) => {
-                if (data) {
-                    api._headers['Authorization'] = `Bearer ${jwt}`;
-                    setLoggedIn(true);
-                    history.push("/");
-                    setEmail(data.data['email']);
-                } 
-            })
-            .catch((err) => {
-                console.log(err);});
-        }
-    }
-
-    useEffect(() => {
-        tokenCheck();
-    }, []);
-    
-    useEffect(() => {
-        if (loggedIn) {
-            api.getUserInfo()
-                .then(data => {
-                    setcurrentUser(data);
-                })
-                .catch(err => {
-                    console.error(err);
-                });
-        }
-    }, [loggedIn]);
-
-    useEffect(() => {
-        if (loggedIn) {
-            api.getInitialCards()
-                .then(cards => {
-                    setCards(cards);
-                })
-                .catch(err => {
-                    console.error(err);
-                });
-        }
-    }, [loggedIn]);
-
     // useEffect(() => {
     //     if (loggedIn) {
     //         Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -257,6 +211,53 @@ function App() {
         api._headers['Authorization'] = " ";
         history.push("/sign-in");
     }
+
+    const tokenCheck = () => {
+        const jwt = localStorage.getItem("jwt")
+        if (localStorage.getItem("jwt")) {
+        auth
+            .checkToken(jwt)
+            .then ((data) => {
+                if (data) {
+                    api._headers['Authorization'] = `Bearer ${jwt}`;
+                    setEmail(data.email);
+                    debugger;
+                    setLoggedIn(true);
+                    history.push("/");
+                } 
+            })
+            .catch((err) => {
+                console.log(err);});
+        }
+    }
+
+    useEffect(() => {
+        tokenCheck();
+    }, []);
+
+    useEffect(() => {
+        if (loggedIn) {
+            api.getUserInfo()
+                .then(data => {
+                    setcurrentUser(data);
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        }
+    }, [loggedIn]);
+
+    useEffect(() => {
+        if (loggedIn) {
+            api.getInitialCards()
+                .then(cards => {
+                    setCards(cards);
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        }
+    }, [loggedIn]);
 
     return (
     <>
