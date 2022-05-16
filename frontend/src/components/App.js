@@ -221,7 +221,6 @@ function App() {
                 if (data) {
                     api._headers['Authorization'] = `Bearer ${jwt}`;
                     setEmail(data.email);
-                    debugger;
                     setLoggedIn(true);
                     history.push("/");
                 } 
@@ -240,6 +239,7 @@ function App() {
             api.getUserInfo()
                 .then(data => {
                     setcurrentUser(data);
+                    debugger;
                 })
                 .catch(err => {
                     console.error(err);
