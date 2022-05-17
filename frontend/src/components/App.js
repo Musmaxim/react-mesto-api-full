@@ -64,12 +64,12 @@ function App() {
     // }, []);
 
     const handleCardLike = (card) => {
-        const isliked = card.likes.some(i => i._id === currentUser._id);
+        const isliked = card.likes.some(i => i === currentUser._id);
         api
         .likeCard(card._id, !isliked)
         .then((newCard) => {
-            setCards((cards) =>
-            cards.map((c) => c._id === card._id ? newCard : c));
+            setCards((state) =>
+            state.map((c) => c._id === card._id ? newCard : c));
         })
         .catch((err) => {
         console.log(err);});
@@ -220,7 +220,7 @@ function App() {
             .then ((data) => {
                 if (data) {
                     api._headers['Authorization'] = `Bearer ${jwt}`;
-                    setEmail(data.email);
+                    setEmail(data.user.email);
                     setLoggedIn(true);
                     history.push("/");
                 } 
@@ -238,8 +238,7 @@ function App() {
         if (loggedIn) {
             api.getUserInfo()
                 .then(data => {
-                    setcurrentUser(data);
-                    debugger;
+                    setcurrentUser(data.user);
                 })
                 .catch(err => {
                     console.error(err);
@@ -251,6 +250,7 @@ function App() {
         if (loggedIn) {
             api.getInitialCards()
                 .then(cards => {
+                    cards.reverse();
                     setCards(cards);
                 })
                 .catch(err => {
