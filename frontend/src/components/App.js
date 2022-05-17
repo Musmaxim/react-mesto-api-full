@@ -188,10 +188,10 @@ function App() {
         auth
             .authorize({ email, password })
             .then((data) => {
-                setLoggedIn(true);
                 setEmail(email);
                 localStorage.setItem("jwt", data.token);
                 api._headers['Authorization'] = `Bearer ${data.token}`;
+                setLoggedIn(true);
                 history.push("/");   
             })
             .catch((err) => {
