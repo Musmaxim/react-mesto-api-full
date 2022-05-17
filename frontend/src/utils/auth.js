@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3001';
+export const BASE_URL = 'http://api.musmaxim.students.nomoredomains.work';
 
 const checkResponse = (res) => {
     if (!res.ok) {
