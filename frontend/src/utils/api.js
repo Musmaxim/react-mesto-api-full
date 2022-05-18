@@ -1,5 +1,5 @@
 const apiConfig = {
-    baseUrl: 'http://api.musmaxim.students.nomoredomains.work',
+    baseUrl: 'https://api.musmaxim.students.nomoredomains.work',
     headers: {
     'Content-Type': 'application/json'
     }

@@ -28,6 +28,7 @@ app.use(requestLogger);
 app.use(cors({
   origin: [
     'http://frontmus.students.nomoredomains.work',
+    'https://frontmus.students.nomoredomains.work',
   ],
   methods: ['OPTIONS', 'GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
