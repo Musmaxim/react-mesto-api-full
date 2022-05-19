@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const { errors } = require('celebrate');
 const auth = require('./middlewares/auth');
@@ -19,7 +19,7 @@ const {
 const { PORT = 3000 } = process.env;
 const app = express();
 
-app.use(cookieParser());
+// app.use(cookieParser());
 
 app.use(express.json());
 
