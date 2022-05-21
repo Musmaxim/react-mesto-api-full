@@ -46,7 +46,7 @@ module.exports.likeCard = (req, res, next) => {
     { new: true },
   )
     .orFail(() => new NotFoundError('Нет пользователя с переданным ID'))
-    .then((dataCard) => res.status(200).send({ data: dataCard }))
+    .then((dataCard) => res.status(200).send({ dataCard }))
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new CastError('Некорректный ID'));
@@ -66,7 +66,7 @@ module.exports.dislikeCard = (req, res, next) => {
     { new: true },
   )
     .orFail(() => new NotFoundError('Нет пользователя с переданным ID'))
-    .then((dataCard) => res.status(200).send({ data: dataCard }))
+    .then((dataCard) => res.status(200).send({ dataCard }))
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new CastError('Некорректный ID'));
